@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ccc;
+        width: 100%;
+        height: 100vh;
+        background-color: #46713f5a;
+      }
+      .todo {
+        width:60%;
+        height:80%;
+        border: 1px solid black;
+        background-color:rgba(254, 253, 254, 0.349);
+        overflow:scroll;
+      }
+      header {
+        background-color: orange;
+        height: 3rem;
+        padding: 3px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position:sticky;
+        top:0;
+      }
+
+      header input[type="text"] {
+        width: 70%;
+        height: 90%;
+        border: none;
+        outline: none;
+        font-size: 1.2rem;
+        padding: 0.3rem 1rem;
+        color: rgb(12, 4, 35);
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+        text-shadow: 6px 4px 8px #b17b1d34;
+      }
+
+      header button {
+        height: 90%;
+        width: 20%;
+        border-radius: 5px;
+        background-color: rgb(7, 176, 179);
+        font-size: 1.2rem;
+        color: white;
+      }
+      /* todo container */
+      .todo-container li {
+        list-style: none;
+      }
+      .todo-container li {
+        list-style: none;
+        background-color: skyblue;
+        padding: 0.5rem 1rem;
+        display: flex;
+        border-bottom: 1px solid red;
+        justify-content: space-between;
+        align-items: center;
+        text-transform: uppercase;
+      }
+      .todo-container li > li {
+        border: none;
+      }
+
+      .todo-container li > button {
+        width: 5rem;
+        height: 2rem;
+        box-shadow: 3px 3px 3px 0px #3984cf;
+        font-size: 1rem;
+        border-radius: 5px;
+      }
+      @media screen and (max-width:640px){
+        .todo{
+            width:100%;
+            margin:0 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="todo">
+        <header>
+          <input type="text" placeholder="add task todo" />
+          <button>Enter</button>
+        </header>
+        <div class="todo-container">
+          <ul></ul>
+        </div>
+      </div>
+    </div>
+    <script>
+        // getting elements
+      let input = document.querySelector("header input");
+      let buttonEnter = document.querySelector("header button");
+      let ul = document.querySelector(".todo-container ul");
+
+    //  on click enter 
+      buttonEnter.addEventListener("click", () => {
+        if(input.value.length>0){
+        let li = document.createElement("li");
+        li.innerHTML = `<li>${input.value}</li><button onclick="done(this)">Done</button>`;
+        ul.appendChild(li);
+       input.value='';
+    }
+      });
+
+     input.addEventListener("keypress", (event) => {
+        console.log(event)
+        if(input.value.length>0 && 
+        event.keyCode===13){
+        let li = document.createElement("li");
+        li.innerHTML = `<li>${input.value}</li><button onclick="done(this)">Done</button>`;
+        ul.appendChild(li);
+       input.value='';
+    }
+      });
+
+      
+
+      //on click done
+      function done(e) {
+        e.innerText = "Delete";
+        e.setAttribute("onclick","delet(this)");
+        e.parentElement.querySelector("li").style.textDecoration =
+          "line-through";
+      }
+     //onclick delete
+      function delet(e) {
+        e.parentElement.remove();
+      }
+    </script>
+  </body>
+</html>
